@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+id nginx >/dev/null 2>&1 || useradd nginx -s /sbin/nologin -M
+sed -i 's/^user .*/user nginx;/' /etc/nginx/nginx.conf
+chown -R nginx:nginx /var/lib/nginx /var/log/nginx /run/nginx
+service nginx restart
