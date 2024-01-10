@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Check if the nginx user exists
+if ! id nginx >/dev/null 2>&1; then
+    # Create the nginx user and group if it doesn't exist
+    useradd nginx -s /sbin/nologin -M
+fi
+
+# Modify the Nginx configuration file
+sed -i 's/^user .*/user nginx;/' /etc/nginx/nginx.conf
+
+# Set ownership of Nginx files and directories to the nginx user
+chown -R nginx:nginx /var/lib/nginx /var/log/nginx /run/nginx
+
+# Restart Nginx to apply the changes
+service nginx restart
+
+# Verify that Nginx is running as the nginx user and listening on port 8080
+ps aux | grep nginx
+netstat -tulpn | grep nginx
