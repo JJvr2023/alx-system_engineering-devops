@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Accept the username as the first argument
+username="$1"
+
+# Use the "su" command to switch to the specified user and execute "whoami"
+su "$username" -c "whoami"
