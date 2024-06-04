@@ -1,10 +1,6 @@
-# Assuming the issue was a permission problem on a file
-file { '/path/to/file':
-  ensure  => present,
-  owner   => 'apache',
-  group   => 'apache',
-  mode    => '0644',
-}
+# Puppet manifest to fix a bug in wp-setings.php
 
-# If the fix involves a configuration change
-# Use the appropriate Puppet resource type for your specific fix
+exec { 'fix the php extension issue':
+  command => 'sed -i s/phpp/php/g /var/www/html/wp-settings.php',
+  path    => '/usr/local/bin/:/bin/'
+}
